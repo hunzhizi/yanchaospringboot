@@ -1,0 +1,47 @@
+# 应用名称
+spring:
+  application:
+    name: yanchao_springboot
+    # 数据库驱动：
+  datasource:
+    druid:
+      password: 123456
+      url: jdbc:mysql://localhost:3306/yan_chao?serverTimezone=UTC
+      username: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      #文件上传相关
+      max-file-size: 3MB
+      max-request-size: 3MB
+
+server:
+  port: 80
+#下面这些内容是为了让MyBatis映射
+  #指定Mybatis的Mapper文件
+# mybatis.mapper-locations=classpath:mappers/*xml
+mybatis:
+  #mapper-default-scope: classpath:com.hunzhizi.dao.*
+  #指定Mybatis的实体目录
+  type-aliases-package: com.hunzhizi.domain
+  configuration-properties:
+    use-generated-keys: true
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:dao/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    mapUnderscoreToCamelCase: ${mybatis.configuration-properties.map-underscore-to-camel-case}
+    useGeneratedKeys: ${mybatis.configuration-properties.use-generated-keys}
+
+#分页插件
+
+pagehelper:
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true
+
+
+
+
+
+

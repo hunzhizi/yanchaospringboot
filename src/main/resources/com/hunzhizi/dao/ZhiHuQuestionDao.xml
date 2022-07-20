@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hunzhizi.dao.ZhiHuQuestionDao">
+    <!--    List<ZhiHuQuestion> getQuestionsByPriority();-->
+    <select id="getQuestionsByPriority" resultType="zhiHuQuestion">
+        select * from zhi_hu_question
+        order by priority
+    </select>
+    <!--    boolean createQuestion(ZhiHuQuestion question);-->
+    <insert id="createQuestion" parameterType="zhiHuQuestion">
+        insert into zhi_hu_question(user_id,create_time,last_edit_time,question_content)
+        values(#{userId},#{createTime},#{lastEditTime},#{questionContent})
+    </insert>
+    <!--    boolean delQuestionById(Integer questionId);-->
+    <delete id="delQuestionById">
+        delete from zhi_hu_question
+        where zhi_hu_question_id = #{zhiHuQuestionId}
+    </delete>
+    <!--    boolean updateQuestion(ZhiHuQuestion question);-->
+    <update id="updateQuestion">
+        update zhi_hu_question
+        <trim suffixOverrides="," prefix="set">
+            <if test="priority!=null">priority = #{priority},</if>
+            <if test="upNum!=null and upNum == 1">up_num = up_num + 1,</if>
+            <if test="upNum!=null and upNum == 2">up_num = up_num - 1,</if>
+            <if test="reportNum!=null and reportNum == 1">report_num = report_num + 1,</if>
+            <if test="reportNum!=null and reportNum == 2">report_num = report_num - 1,</if>
+            <if test="lastEditTime!=null">last_edit_time = #{lastEditTime},</if>
+            <if test="questionContent!=null">question_content = #{questionContent}</if>
+        </trim>
+        where zhi_hu_question_id = #{zhiHuQuestionId}
+    </update>
+</mapper>

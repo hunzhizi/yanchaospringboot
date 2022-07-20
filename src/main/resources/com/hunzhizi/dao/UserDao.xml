@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hunzhizi.dao.UserDao">
+
+    <!--    boolean save(User user);-->
+    <insert id="save" parameterType="user" useGeneratedKeys="true" keyColumn="userId">
+        insert into user(nickname,gender,user_type,report_num,forbidden,
+        recognized,anonymous,official_name,bio,create_time,last_edit_time,profile_addr)
+        values(#{nickname},#{gender},#{userType},#{reportNum},#{forbidden},#{recognized}
+        ,#{anonymous},#{officialName},#{bio},#{createTime},#{lastEditTime},#{profileAddr})
+    </insert>
+
+    <!--    boolean update(User user);-->
+    <update id="update" parameterType="user">
+        update user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="nickname!=null">nickname=#{nickname},</if>
+            <if test="gender!=null">gender=#{gender},</if>
+            <if test="userType!=null">user_type=#{userType},</if>
+            <if test="reportNum!=null and reportNum == 1">report_num=report_num + 1,</if>
+            <if test="forbidden!=null">forbidden=#{forbidden},</if>
+            <if test="recognized!=null">recognized=#{recognized},</if>
+            <if test="anonymous!=null">anonymous=#{anonymous},</if>
+            <if test="bio!=null">bio=#{bio},</if>
+            <if test="lastEditTime!=null">last_edit_time=#{lastEditTime},</if>
+            <if test="profileAddr!=null">profile_addr=#{profileAddr},</if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+
+
+    <!--    User get(Integer uuid);-->
+    <select id="get" parameterType="int" resultType="user">
+        select * from user where user_id =#{userId}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hunzhizi.dao.ActivityCommitDao">
+    <!--    boolean createCommit(ActivityCommit commit);-->
+    <insert id="createCommit" parameterType="activityCommit">
+        insert into activity_commit(user_id,activity_id,stu_name,stu_id,clazz,phone_num,qq,stu_email)
+        values(#{userId},#{activityId},#{stuName},#{stuId},#{clazz},#{phoneNum},#{qq},#{stuEmail})
+    </insert>
+
+    <!--    boolean deleteCommitByUserIdNActivityId(@Param("userId") Integer userId,@Param("activityId") Integer activityId);-->
+    <delete id="deleteCommitByUserIdNActivityId">
+        delete from activity_commit
+        where user_id = #{userId}
+        and activity_id = #{activityId}
+    </delete>
+
+    <!--    ActivityCommit getCommitByUserIdNActivityId(Integer userId, Integer activityId);-->
+    <select id="getCommitByUserIdNActivityId" resultType="activityCommit">
+        select * from activity_commit
+        where user_id = #{userId} and activity_id = #{activityId}
+    </select>
+</mapper>

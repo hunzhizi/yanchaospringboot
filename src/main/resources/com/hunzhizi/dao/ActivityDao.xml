@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hunzhizi.dao.ActivityDao">
+    <!--    //创建活动-->
+    <!--    boolean createActivity(Activity activity);-->
+    <insert id="createActivity" parameterType="activity">
+        insert into activity(activity_id,user_id,create_time,title,activity_desc,submit_email
+        ,deadline,over,stu_name,stu_id,clazz,phone_num,qq,stu_email)
+        values(#{activityId},#{userId},#{createTime},#{title},#{activityDesc},
+        #{submitEmail},#{deadline},#{over},#{stuName},#{stuId},#{clazz},#{phoneNum},#{qq},#{stuEmail})
+    </insert>
+
+    <!--    //修改活动-->
+    <!--    boolean updateActivity(Activity activity);-->
+    <update id="updateActivity" parameterType="activity">
+        update activity
+        <trim prefix="set" suffixOverrides=",">
+            <if test="title!=null">title=#{title},</if>
+            <if test="activityDesc!=null">activity_desc=#{activityDesc},</if>
+            <if test="submitEmail!=null">submit_email=#{submitEmail},</if>
+            <if test="deadline!=null">deadline=#{deadline},</if>
+        </trim>
+        where activity_id = #{activityId}
+    </update>
+    <!--    //获取活动信息-->
+    <!--    Activity getActivityById(Integer activityId);-->
+    <select id="getActivityById" resultType="activity">
+        select * from activity
+        where activity_id = #{activityId}
+    </select>
+
+    <!--    List<Activity> getAllActivity();-->
+    <select id="getAllActivity" resultType="activity">
+        select * from activity
+        where over = 0
+        order by deadline
+    </select>
+
+    <!--    void plusParticipateNum(Integer activityId);-->
+    <update id="plusParticipateNum">
+        update activity set participate_num= participate_num+1
+        where activity_id = #{activityId}
+    </update>
+
+    <!--    void minusParticipateNum(Integer activityId);-->
+    <update id="minusParticipateNum">
+        update activity set participate_num= participate_num - 1
+        where activity_id = #{activityId}
+    </update>
+
+</mapper>

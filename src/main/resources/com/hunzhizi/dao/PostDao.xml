@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hunzhizi.dao.PostDao">
+    <!--    boolean createPost(Post post);-->
+    <!--  todo 现在已经没有img_addr_list 字段了-->
+    <insert id="createPost" useGeneratedKeys="true" keyProperty="postId">
+        insert into post(user_id,content,create_time,
+        last_edit_time,post_type,parent_zhi_hu)
+        values(#{userId},#{content},#{createTime},
+        #{lastEditTime},#{postType},#{parentZhiHu})
+    </insert>
+
+    <!--    boolean delPostByPostId(Integer postId);-->
+    <delete id="delPostByPostId">
+        delete from post
+        where post_id = #{postId}
+    </delete>
+    <!--    boolean updatePost(Post post);-->
+    <!--    传1 表示增加，传 2 表示减少-->
+    <update id="updatePost">
+        update post
+        <trim prefix="set" suffixOverrides=",">
+            <if test="upNum!=null and upNum == 1">up_num= up_num + 1,</if>
+            <if test="upNum!=null and upNum == 2">up_num= up_num - 1,</if>
+            <if test="collectionNum!=null and collectionNum == 1">collection_num=collection_num + 1,</if>
+            <if test="collectionNum!=null  and collectionNum == 2">collection_num=collection_num - 1,</if>
+            <if test="reportNum!=null and reportNum == 1">report_num=report_num + 1,</if>
+            <if test="reportNum!=null and reportNum == 2">report_num=report_num - 1,</if>
+            <if test="content!=null">content=#{content},</if>
+            <if test="priority!=null">priority=#{priority},</if>
+            <if test="lastEditTime!=null">last_edit_time=#{lastEditTime},</if>
+        </trim>
+        where post_id = #{postId}
+    </update>
+
+    <!--    &lt;!&ndash;    List<Post> getPostByUserId(Integer userId);&ndash;&gt;-->
+    <!--    <select id="getPostByUserId" resultType="Post">-->
+    <!--        select * from post-->
+    <!--        where user_id = #{userId}-->
+    <!--    </select>-->
+    <!--    List<Post> getPostByUserId(Integer userId);-->
+    <resultMap id="postDto" type="post">
+        <id property="postId" column="post_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="upNum" column="up_num"/>
+        <result property="collectionNum" column="collection_num"/>
+        <result property="commentNum" column="comment_num"/>
+        <result property="reportNum" column="report_num"/>
+        <result property="content" column="content"/>
+        <result property="createTime" column="create_time"/>
+        <result property="postType" column="post_type"/>
+        <result property="parentZhiHu" column="parent_zhi_hu"/>
+        <result property="content" column="content"/>
+        <!--        <collection property="imgAddrList" ofType="postImg">-->
+        <!--            <result property="postId" column="post_id"/>-->
+        <!--            <result property="imgName" column="img_name"/>-->
+        <!--        </collection>-->
+        <collection property="imgAddrList" ofType="postImg" select="com.hunzhizi.dao.PostImgDao.selectByPostId"
+                    column="post_id"/>
+    </resultMap>
+    <select id="getPostByUserId" resultMap="postDto">
+        select * from post
+--         left join post_img
+--         on post.post_id = post_img.post_id
+        where user_id = #{userId}
+    </select>
+
+
+    <!--        List<Post> getPostByPriority(Integer PostType);-->
+    <select id="getPostByPriority" resultMap="postDto">
+        select * from post
+--         left join post_img
+--         on post.post_id = post_img.post_id
+        where post_type = #{postType}
+        order by priority desc,last_edit_time desc
+    </select>
+    <!--     List<Post> getPostByLastEditTime(Integer PostType);-->
+    <select id="getPostByLastEditTime" resultMap="postDto">
+        select * from post
+--         left join post_img
+--         on post.post_id = post_img.post_id
+                where post_type = #{postType}
+        order by last_edit_time desc
+    </select>
+
+    <!--    Post getPostByPostId(Integer postId);-->
+    <select id="getPostByPostId" resultMap="postDto">
+    select * from post
+--        left join post_img
+--         on post.post_id = post_img.post_id
+        where post.post_id = #{postId}
+</select>
+</mapper>

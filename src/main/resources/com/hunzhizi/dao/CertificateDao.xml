@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hunzhizi.dao.CertificateDao">
+    <!--    boolean createCertificate(Certificate certificateDao);-->
+    <insert id="createCertificate" parameterType="certificate">
+        insert into certificate(user_id,stu_name,stu_id,`desc`,img_addr)
+        values(#{userId},#{stuName},#{stuId},#{desc},#{imgAddr})
+    </insert>
+
+    <!--    boolean delCertificate(Integer certificateId);-->
+    <delete id="delCertificate">
+        delete from certificate
+        where certificate_id = #{certificateId}
+    </delete>
+
+    <!--    List<Certificate> getAllCertificate();-->
+    <select id="getAllCertificate" resultType="certificate">
+        select * from certificate
+    </select>
+
+</mapper>
