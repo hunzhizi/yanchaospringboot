@@ -2,7 +2,10 @@ package com.hunzhizi.service;
 
 import com.github.pagehelper.PageInfo;
 import com.hunzhizi.domain.Activity;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author 魂之子
@@ -22,4 +25,6 @@ public interface ActivityService {
     Activity getActivityById(Integer activityId);
 
     PageInfo<Activity> getAllActivity(Integer pageNum, Integer pageSize);
+
+    PageInfo<Activity> getActivityByUserId(Integer pageNum,Integer pageSize,Integer userId);
 }

@@ -93,6 +93,11 @@ public class Code {
     public static final Integer COLLECTION_DEL_ERR = 20730;
     public static final Integer COLLECTION_GET_ERR = 20740;
 
+    //WechatAuth 认证相关
+
+    public static final Integer WECHATAUTH_GET_OK = 20841;
+
+    public static final Integer WECHATAUTH_GET_ERR = 20840;
 
 
     //系统错误编码

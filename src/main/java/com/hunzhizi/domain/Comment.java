@@ -18,6 +18,7 @@ public class Comment {
     private Integer downNum = 0; //评论的点踩的数量
     private String content;
     private Date commentCreateTime = new Date();
+    private Integer parentCommentId;    //用于标记评论的评论
 
     public Integer getCommentId() {
         return CommentId;
@@ -74,5 +75,13 @@ public class Comment {
 
     public void setCommentCreateTime(Date commentCreateTime) {
         this.commentCreateTime = commentCreateTime;
+    }
+
+    public Integer getParentCommentId() {
+        return parentCommentId;
+    }
+
+    public void setParentCommentId(Integer parentCommentId) {
+        this.parentCommentId = parentCommentId;
     }
 }

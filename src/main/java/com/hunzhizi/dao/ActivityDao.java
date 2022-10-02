@@ -2,6 +2,8 @@ package com.hunzhizi.dao;
 
 import com.hunzhizi.domain.Activity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -30,4 +32,8 @@ public interface ActivityDao {
     //将参与人数--
     void minusParticipateNum(Integer activityId);
 
+    //根据用户id来查询其发布的活动
+    @Select("select * from activity " +
+            "where user_id = #{userId}")
+    List<Activity> getActivityByUserId(@Param("userId") Integer userId);
 }

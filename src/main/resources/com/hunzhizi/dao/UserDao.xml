@@ -5,10 +5,10 @@
 <mapper namespace="com.hunzhizi.dao.UserDao">
 
     <!--    boolean save(User user);-->
-    <insert id="save" parameterType="user" useGeneratedKeys="true" keyColumn="userId">
-        insert into user(nickname,gender,user_type,report_num,forbidden,
+    <insert id="save" parameterType="user" useGeneratedKeys="true" keyProperty="userId">
+        insert into user(user_id,nickname,gender,user_type,report_num,forbidden,
         recognized,anonymous,official_name,bio,create_time,last_edit_time,profile_addr)
-        values(#{nickname},#{gender},#{userType},#{reportNum},#{forbidden},#{recognized}
+        values(#{userId},#{nickname},#{gender},#{userType},#{reportNum},#{forbidden},#{recognized}
         ,#{anonymous},#{officialName},#{bio},#{createTime},#{lastEditTime},#{profileAddr})
     </insert>
 

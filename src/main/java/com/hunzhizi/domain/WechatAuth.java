@@ -9,11 +9,33 @@ import java.util.Date;
  * @description: 创建本地账号
  */
 public class WechatAuth {
-    private Long WechatAuthId;
+    private Integer WechatAuthId;
     //     private String username;        日后可以做扩展
-//     private String password;
-    private String openId;
-    private Date createTime;
-    private User user;
+    //     private String password;
+    private String openId;      //28位
+    private Integer userId;
 
+    public Integer getWechatAuthId() {
+        return WechatAuthId;
+    }
+
+    public void setWechatAuthId(Integer wechatAuthId) {
+        WechatAuthId = wechatAuthId;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 }

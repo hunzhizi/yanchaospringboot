@@ -43,4 +43,13 @@ public class ActivityImpl implements ActivityService {
         List<Activity> allActivity = activityDao.getAllActivity();
         return new PageInfo<>(allActivity);
     }
+
+    @Override
+    public PageInfo<Activity> getActivityByUserId(Integer pageNum, Integer pageSize, Integer userId) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Activity> activityByUserId = activityDao.getActivityByUserId(userId);
+        return new PageInfo<>(activityByUserId);
+    }
+
+
 }

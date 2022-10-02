@@ -5,8 +5,8 @@
 <mapper namespace="com.hunzhizi.dao.CommentDao">
     <!--    boolean createComment(Comment comment);-->
     <insert id="createComment" parameterType="comment">
-        insert into comment(comment_id,user_id,post_id,up_num,down_num,content,comment_create_time)
-        values(#{CommentId},#{userId},#{postId},#{upNum},#{downNum},#{content},#{commentCreateTime})
+        insert into comment(comment_id,user_id,post_id,up_num,down_num,content,comment_create_time,parent_comment_id)
+        values(#{CommentId},#{userId},#{postId},#{upNum},#{downNum},#{content},#{commentCreateTime},#{parentCommentId})
     </insert>
 
     <!--    boolean updateComment(Comment comment);-->

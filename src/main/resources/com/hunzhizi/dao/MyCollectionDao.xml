@@ -12,5 +12,5 @@
     LEFT JOIN post
     ON col.post_id = post.post_id
     WHERE col.user_id = 1
-</select>
+    </select>
 </mapper>

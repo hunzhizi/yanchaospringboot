@@ -52,4 +52,11 @@ public class ActivityController {
         return new Result(Code.ACTIVITY_GET_OK, allActivity);
     }
 
+    //根据用户id获取改用户组织的活动
+    @GetMapping("/{pageNum}/{pageSize}/{userId}")
+    public Result getActivityByUserId(@PathVariable Integer pageNum,@PathVariable Integer pageSize,@PathVariable Integer userId){
+        PageInfo<Activity> activityByUserId = activityService.getActivityByUserId(pageNum, pageSize, userId);
+        return new Result(Code.ACTIVITY_GET_OK,activityByUserId);
+    }
+
 }
