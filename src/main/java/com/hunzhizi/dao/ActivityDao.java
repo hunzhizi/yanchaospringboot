@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,4 +37,8 @@ public interface ActivityDao {
     @Select("select * from activity " +
             "where user_id = #{userId}")
     List<Activity> getActivityByUserId(@Param("userId") Integer userId);
+
+    //获取过期一天的所有日期
+    @Select("SELECT * FROM activity WHERE TO_DAYS( NOW( ) ) - TO_DAYS( deadline ) = 1")
+    List<Activity> getActivityByDate();
 }

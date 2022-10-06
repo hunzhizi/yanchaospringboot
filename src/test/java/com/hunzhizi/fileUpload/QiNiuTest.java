@@ -27,14 +27,14 @@ public class QiNiuTest {
     @Test
     public void test01() {
         //构造一个带指定 Region 对象的配置类
-        Configuration cfg = new Configuration(Region.region1());
+        Configuration cfg = new Configuration(Region.regionAs0());
 //...其他参数参考类注释
 
         UploadManager uploadManager = new UploadManager(cfg);
 //...生成上传凭证，然后准备上传
         String accessKey = "A5WkIaePH3La1s8eoSjxUIrdK0ZjLidvIaXz0L5p";
         String secretKey = "8Nlbrk_N0JUrEU8MrR3Zu5yKlKM-v20rRtvoGFPQ";
-        String bucket = "yanchao";
+        String bucket = "yanchaoabroad";
 //如果是Windows情况下，格式是 D:\\qiniu\\test.png
         String localFilePath = "C:\\Users\\29024\\Pictures\\Saved Pictures\\maomao.jpg";
 //默认不指定key的情况下，以文件内容的hash值作为文件名

@@ -14,6 +14,19 @@ spring:
       #文件上传相关
       max-file-size: 3MB
       max-request-size: 3MB
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 1542106578@qq.com
+    password: ycjpzhzhmseihbfb
+    default-encoding: utf-8
+    properties:
+      mail:
+        stmp:
+          socketFactory:
+           class: javax.net.ssl.SSLSocketFactory
+           port: 587
+        debug: true
 
 server:
   port: 80

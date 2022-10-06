@@ -9,18 +9,10 @@ import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
-import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.geometry.Positions;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import org.springframework.stereotype.Component;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
+
 
 /**
  * @author 魂之子
@@ -32,10 +24,10 @@ import java.nio.charset.StandardCharsets;
 public class PicUtil {
     private static final String accessKey = "A5WkIaePH3La1s8eoSjxUIrdK0ZjLidvIaXz0L5p";
     private static final String secretKey = "8Nlbrk_N0JUrEU8MrR3Zu5yKlKM-v20rRtvoGFPQ";
-    private static final String bucket = "yanchao";
+    private static final String bucket = "yanchaoabroad";
     private static final Auth auth = Auth.create(accessKey, secretKey);
     //构造一个带指定 Region 对象的配置类
-    private static final Configuration cfg = new Configuration(Region.region1());
+    private static final Configuration cfg = new Configuration(Region.regionAs0());
     private static final UploadManager uploadManager = new UploadManager(cfg);
     private static final BucketManager bucketManager = new BucketManager(auth, cfg);
 
@@ -72,7 +64,6 @@ public class PicUtil {
             DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
             System.out.println(putRet.key);
             System.out.println(putRet.hash);
-
 
     }
     public static void delFileByName(String key) throws QiniuException {
