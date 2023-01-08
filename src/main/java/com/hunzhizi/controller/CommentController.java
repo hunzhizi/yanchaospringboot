@@ -8,6 +8,8 @@ import com.hunzhizi.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author 魂之子
  * @program: yanChao
@@ -45,5 +47,12 @@ public class CommentController {
         return pageInfo == null
                 ? new Result(Code.COMMENT_GET_ERR)
                 : new Result(Code.COMMENT_GET_OK,pageInfo);
+    }
+    @GetMapping("/newComment/{userId}")
+    public Result getNewCommentByUserId(@PathVariable Integer userId){
+        List msg = commentService.getNewCommentByUserId(userId);
+        return msg == null
+                ? new Result(Code.COMMENT_REPLY_ERR)
+                : new Result(Code.COMMENT_REPLY_OK,msg);
     }
 }
