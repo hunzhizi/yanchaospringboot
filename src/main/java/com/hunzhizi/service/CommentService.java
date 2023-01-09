@@ -2,6 +2,7 @@ package com.hunzhizi.service;
 
 import com.github.pagehelper.PageInfo;
 import com.hunzhizi.domain.Comment;
+import com.hunzhizi.domain.CommentReply;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface CommentService {
 
     boolean updateComment(Comment comment);
 
-    List<String> getNewCommentByUserId(Integer userId);
+    List<CommentReply> getNewCommentByUserId(Integer userId);
 
     @Transactional(readOnly = true)
     PageInfo<Comment> getCommentByPostId(Integer postId, Integer pageNum, Integer pageSize);

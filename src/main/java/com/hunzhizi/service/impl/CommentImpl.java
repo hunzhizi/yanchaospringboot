@@ -6,6 +6,7 @@ import com.hunzhizi.dao.CommentDao;
 import com.hunzhizi.dao.PostDao;
 import com.hunzhizi.dao.UserDao;
 import com.hunzhizi.domain.Comment;
+import com.hunzhizi.domain.CommentReply;
 import com.hunzhizi.domain.Post;
 import com.hunzhizi.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,9 @@ public class CommentImpl implements CommentService {
         if (theirComment.length()>10){
             theirComment = theirComment.substring(0,10) + "······";
         }
-        String message = theirName + "回复了您的帖子《" + myPost + "》:" + theirComment;
+        String message = postId + "分割" + theirName + "回复了您的帖子《" + myPost + "》:" + theirComment;
         stringRedisTemplate.opsForList().rightPush(postOwnerId,message);
-        stringRedisTemplate.opsForList().getOperations().expire(postOwnerId,15, TimeUnit.DAYS);
+        stringRedisTemplate.opsForList().getOperations().expire(postOwnerId,15,TimeUnit.DAYS);
 
 
         return commentDao.createComment(comment);
@@ -65,13 +66,23 @@ public class CommentImpl implements CommentService {
     }
 
     @Override
-    public List<String> getNewCommentByUserId(Integer userId) {
-        List<String> msg = new ArrayList<>();
+    public List<CommentReply> getNewCommentByUserId(Integer userId) {
+        List<CommentReply> msg = new ArrayList<>();
         String postOwnerId = "msg" + userId;
         while (true) {
             String mssg = stringRedisTemplate.opsForList().leftPop(postOwnerId);
             if (mssg!=null) {
-                msg.add(mssg);
+                int postId = 0;
+                for (int i = 0; i < 11; i++) {
+                    if (mssg.charAt(i)>='0'&&mssg.charAt(i)<='9'){
+                        postId = postId * 10 + (mssg.charAt(i) - 48);
+                    }else {
+                        break;
+                    }
+                }
+                String uuId = postId + "分割";//删除字符串
+                mssg = mssg.replace(uuId,"");
+                msg.add(new CommentReply(postId,mssg));
             }else {
                 break;
             }
