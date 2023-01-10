@@ -32,4 +32,6 @@ public interface PostDao {
     List<Post> getPostByLastEditTime(Integer postType);
 
     Post getPostByPostId(Integer postId);
+
+    List<Post> getPostByQuestionId(Integer parentZhiHu);
 }

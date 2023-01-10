@@ -51,8 +51,6 @@ public class CommentController {
     @GetMapping("/newComment/{userId}")
     public Result getNewCommentByUserId(@PathVariable Integer userId){
         List msg = commentService.getNewCommentByUserId(userId);
-        return msg == null
-                ? new Result(Code.COMMENT_REPLY_ERR)
-                : new Result(Code.COMMENT_REPLY_OK,msg);
+        return new Result(Code.COMMENT_REPLY_OK,msg);
     }
 }

@@ -144,4 +144,10 @@ public class PostController {
         return (flag ? new Result(Code.POST_UPDATE_OK) : new Result(Code.POST_UPDATE_ERR));
     }
 
+    @GetMapping("/byQuestionId/{parentZhiHu}")
+    public Result getPostByQuestionId(@PathVariable Integer parentZhiHu){
+        List<Post> zhiHu = postService.getPostByQuestionId(parentZhiHu);
+        return new Result(Code.POST_GET_OK,zhiHu);
+    }
+
 }
