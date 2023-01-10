@@ -6,23 +6,23 @@ package com.hunzhizi.domain;
  * @Date 2023/1/9 22:40
  */
 public class CommentReply {
-    private Integer userId;
+    private Integer postId;
     private String message;
 
     public CommentReply() {
     }
 
-    public CommentReply(Integer userId, String message) {
-        this.userId = userId;
+    public CommentReply(Integer postId, String message) {
+        this.postId = postId;
         this.message = message;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getPostId() {
+        return postId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
 
     public String getMessage() {
