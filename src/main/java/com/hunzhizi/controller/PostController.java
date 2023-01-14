@@ -8,25 +8,19 @@ import com.hunzhizi.domain.PostImg;
 import com.hunzhizi.service.PostImgService;
 import com.hunzhizi.service.PostService;
 import com.hunzhizi.util.PicUtil;
-import com.qiniu.common.QiniuException;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Date;
+import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
@@ -77,30 +71,48 @@ public class PostController {
         String newPicName = key.toString() + extension;
         boolean flag;
         try {
-            String tempName = "src/main/resources/static/temp/" + newPicName;
-            File img = new File(tempName);
+            File path = new File(ResourceUtils.getURL("classpath:").getPath());
+            if(!path.exists()) path = new File("");
+//            log.info("path:" + path.getAbsolutePath());
+//            String tempName = "classpath:static/img/" + newPicName;
+//            log.info("创建本地文件");
+            File img = new File(path.getAbsolutePath(),  newPicName);
+//            File img = new File(tempName);
+            String tempName = img.getAbsolutePath();
+//            log.info("tempName:" + tempName);
+//            log.info("本地文件创建成功");
 
+//            log.info("图片进行压缩和水印处理");
+            String ysuNestPath = new File(path.getAbsolutePath(), "static/img/ysunest.png").getAbsolutePath();
+//            log.info("ysunestPath: "+ysuNestPath);
+            InputStream ysuNestIS = new ClassPathResource("static/img/ysunest.png").getInputStream();
+//            log.info("读取流文件成功");
             //利用Thumbnails 工具对图片进行压缩和水印处理
             Thumbnails.of(imgFile.getInputStream()).scale(0.5f)
                     .outputQuality(0.2f)
 //                    .outputFormat("jpeg")
-                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File("src/main/resources/static/img/ysu.png")), 0.4f)
+//                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File("src/main/resources/static/img/ysunest.png")), 0.4f)
+                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(ysuNestIS), 0.4f)
                     .toFile(img);
-            System.out.println("success2");
 
+//            log.info("图片进行压缩和水印处理成功");
 //            PicUtil.uploadByFileBytes(imgFile.getBytes(), newPicName);
             PicUtil.uploadByLocalFilePath(tempName,newPicName);
-
+//            log.info("图片上传成功");
             PostImg postImg = new PostImg();
+//            log.info("创建postImg成功");
             postImg.setPostId(Integer.parseInt(postId));
+//            log.info("setPostId 成功");
             postImg.setImgName(newPicName);
+//            log.info("setImgName 成功");
             flag = postImgService.insert(postImg);
-
             //删除图片
             if(!img.delete()){
+                log.info("图片删除失败");
                 throw new RuntimeException("图片删除失败");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             log.info("postId:" + postId + "  post图片上传出现异常");
             return new Result(Code.FILE_UPLOAD_ERR, "文件上传失败");
         }
