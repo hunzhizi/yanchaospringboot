@@ -92,4 +92,8 @@
 --         on post.post_id = post_img.post_id
         where post.post_id = #{postId}
 </select>
+    <select id="getPostByQuestionId" resultMap="postDto">
+        select * from post
+        where parent_zhi_hu = #{parentZhiHu}
+    </select>
 </mapper>

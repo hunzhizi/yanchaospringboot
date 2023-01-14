@@ -31,4 +31,5 @@ public interface PostService {
     public PageInfo<Post> getPostByLastEditTime(int postType,int pageNum, int pageSize);
 
     Post getPostByPostId(Integer postId);
+    List<Post> getPostByQuestionId(Integer parentZhiHu);
 }

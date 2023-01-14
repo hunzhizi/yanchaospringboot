@@ -91,4 +91,9 @@ public class PostServiceImpl implements PostService {
     public Post getPostByPostId(Integer postId) {
         return postDao.getPostByPostId(postId);
     }
+
+    @Override
+    public List<Post> getPostByQuestionId(Integer parentZhiHu) {
+        return postDao.getPostByQuestionId(parentZhiHu);
+    }
 }

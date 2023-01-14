@@ -36,10 +36,12 @@ public class Code {
     //comment 相关
     public static final Integer COMMENT_SAVE_OK = 20211;
     public static final Integer COMMENT_UPDATE_OK = 20221;
+    public static final Integer COMMENT_REPLY_OK = 20231;
     public static final Integer COMMENT_GET_OK = 20241;
 
     public static final Integer COMMENT_SAVE_ERR = 20210;
     public static final Integer COMMENT_UPDATE_ERR = 20220;
+    public static final Integer COMMENT_REPLY_ERR = 20230;
     public static final Integer COMMENT_GET_ERR = 20240;
 
     //activity 相关

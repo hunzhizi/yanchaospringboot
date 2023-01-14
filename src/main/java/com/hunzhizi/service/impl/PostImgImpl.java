@@ -1,6 +1,7 @@
 package com.hunzhizi.service.impl;
 
 import com.hunzhizi.dao.PostImgDao;
+import com.hunzhizi.domain.Post;
 import com.hunzhizi.domain.PostImg;
 import com.hunzhizi.service.PostImgService;
 import org.springframework.stereotype.Service;
@@ -32,4 +33,5 @@ public class PostImgImpl implements PostImgService {
     public List<PostImg> selectByPostId(Integer postId) {
         return postImgDao.selectByPostId(postId);
     }
+
 }

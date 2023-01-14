@@ -27,6 +27,24 @@ spring:
            class: javax.net.ssl.SSLSocketFactory
            port: 587
         debug: true
+  #   redis相关配置
+#  redis:
+#    host: 43.138.105.124
+#    port: 6379
+#    password: 000415
+#    database: 1
+  redis:
+    host: 192.168.204.129
+    port: 6379
+    password: 212412
+    database: 14
+
+    lettuce:
+      pool:
+        max-idle: 8
+        max-active: 8
+        min-idle: 0
+        max-wait: 100ms
 
 server:
   port: 80
