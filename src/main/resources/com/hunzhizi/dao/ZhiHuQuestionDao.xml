@@ -27,6 +27,8 @@
             <if test="upNum!=null and upNum == 2">up_num = up_num - 1,</if>
             <if test="reportNum!=null and reportNum == 1">report_num = report_num + 1,</if>
             <if test="reportNum!=null and reportNum == 2">report_num = report_num - 1,</if>
+            <if test="commentNum!=null and commentNum == 1">comment_num = comment_num + 1,</if>
+            <if test="commentNum!=null and commentNum == 2">comment_num = comment_num - 1,</if>
             <if test="lastEditTime!=null">last_edit_time = #{lastEditTime},</if>
             <if test="questionContent!=null">question_content = #{questionContent}</if>
         </trim>

@@ -15,7 +15,8 @@ public class ZhiHuQuestion {
     private Integer userId;
     private Integer priority; //热度
     private Integer upNum;
-    private Integer reportNum;
+    private Integer reportNum; //举报
+    private Integer commentNum;// = 0;     //评论数量
     private Date createTime = new Date();
     private Date lastEditTime = new Date();
     private String questionContent;
@@ -86,5 +87,13 @@ public class ZhiHuQuestion {
 
     public void setQuestionContent(String questionContent) {
         this.questionContent = questionContent;
+    }
+
+    public Integer getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(Integer commentNum) {
+        this.commentNum = commentNum;
     }
 }
