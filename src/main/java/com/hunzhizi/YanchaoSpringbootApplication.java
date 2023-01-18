@@ -60,7 +60,7 @@ public class YanchaoSpringbootApplication {
         //设置安全连接标志，该标志将被分配给通过该连接接收的请求
         //secure新的安全连接标志
         //如果connector.setSecure(true)，则http使用http, https使用https; 分离状态，因此设置false
-        connector.setSecure(false);
+        connector.setSecure(true);
         //http默认端口
         connector.setPort(80);
         //重定向证书端口443，便于http自动跳转https

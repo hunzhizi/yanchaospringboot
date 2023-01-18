@@ -45,12 +45,13 @@ spring:
         max-active: 8
         min-idle: 0
         max-wait: 100ms
+  # 静态资源对外暴露配置
 
 server:
-    port: 80
+#    port: 80
   # 默认访问端口443。作用：访问https时，不需要添加端口443： https://域名
   # 例如：”port: 8443“ 时，https访问时，需要添加端口8443： https://域名:8443
-#  port: 443
+  port: 443
 #  ssl:
 #    # resources根目录的”证书源文件.pfx“
 #    key-store: classpath:520oo.jks
