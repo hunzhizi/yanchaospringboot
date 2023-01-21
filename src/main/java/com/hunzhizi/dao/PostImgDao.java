@@ -23,7 +23,7 @@ public interface PostImgDao {
             "where post_id = #{postId}")
     boolean deleteByPostId(Integer postId);
 
-    @Select("select * from post_img " +
+    @Select("select img_name from post_img " +
             "where post_id = #{postId}")
-    List<PostImg> selectByPostId(Integer postId);
+    List<String> selectByPostId(Integer postId);
 }
