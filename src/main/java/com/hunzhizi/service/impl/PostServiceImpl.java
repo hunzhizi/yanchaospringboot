@@ -99,4 +99,11 @@ public class PostServiceImpl implements PostService {
         List<Post> posts = postDao.getPostByQuestionId(parentZhiHu);
         return new PageInfo<Post>(posts);
     }
+
+    @Override
+    public PageInfo<Post> getPostByContent(String str,int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Post> posts = postDao.getPostByContent(str);
+        return new PageInfo<Post>(posts);
+    }
 }

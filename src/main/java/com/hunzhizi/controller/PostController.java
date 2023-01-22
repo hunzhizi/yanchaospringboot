@@ -169,4 +169,11 @@ public class PostController {
         return new Result(Code.POST_GET_OK,zhiHu);
     }
 
+    @GetMapping("/byContent/{pageNum}/{pageSize}")
+    public Result getPostByContent(@RequestBody String str, @PathVariable Integer pageNum, @PathVariable Integer pageSize){
+        PageInfo<Post> zhiHu = postService.getPostByContent(str, pageNum, pageSize);
+        return new Result(Code.POST_GET_OK,zhiHu);
+    }
+
+
 }
