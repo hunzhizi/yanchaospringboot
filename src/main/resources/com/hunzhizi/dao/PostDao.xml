@@ -96,4 +96,7 @@
         select * from post
         where parent_zhi_hu = #{parentZhiHu}
     </select>
+    <select id="getPostByContent" resultType="com.hunzhizi.domain.Post">
+        select * from post where content like '%${str}%'
+    </select>
 </mapper>
