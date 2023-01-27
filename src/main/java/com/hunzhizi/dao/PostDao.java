@@ -34,4 +34,6 @@ public interface PostDao {
     Post getPostByPostId(Integer postId);
 
     List<Post> getPostByQuestionId(Integer parentZhiHu);
+
+    List<Post> getPostByContent(String str);
 }

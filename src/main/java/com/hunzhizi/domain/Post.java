@@ -23,7 +23,7 @@ public class Post {
     private Date createTime = new Date();
     private Date lastEditTime = new Date();
     private Integer postType;// = 0;
-    private List<PostImg> imgAddrList;   //存放img的url
+    private List<String> imgAddrList;   //存放img的url
     private int priority;// = 0;       //根据返回值算出来的一个值，所以，应该放在dto里面
     private Integer parentZhiHu;
 
@@ -109,11 +109,11 @@ public class Post {
         this.postType = postType;
     }
 
-    public List<PostImg> getImgAddrList() {
+    public List<String> getImgAddrList() {
         return imgAddrList;
     }
 
-    public void setImgAddrList(List<PostImg> imgAddrList) {
+    public void setImgAddrList(List<String> imgAddrList) {
         this.imgAddrList = imgAddrList;
     }
 

@@ -14,5 +14,5 @@ import java.util.List;
 public interface PostImgService {
     boolean insert(PostImg postImg);
     boolean delete(Integer postId);
-    List<PostImg> selectByPostId(Integer postId);
+    List<String> selectByPostId(Integer postId);
 }

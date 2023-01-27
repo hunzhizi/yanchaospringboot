@@ -30,7 +30,7 @@ public class PostImgImpl implements PostImgService {
     }
 
     @Override
-    public List<PostImg> selectByPostId(Integer postId) {
+    public List<String> selectByPostId(Integer postId) {
         return postImgDao.selectByPostId(postId);
     }
 

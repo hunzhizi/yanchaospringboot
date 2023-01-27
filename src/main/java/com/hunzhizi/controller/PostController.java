@@ -39,12 +39,19 @@ public class PostController {
     @Resource
     private PostImgService postImgService;
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public Result getPostByUserId(@PathVariable Integer userId  ) {
         if (userId == null) return new Result(Code.PASS_VALUE_ERR);
         List<Post> postByUserId = postService.getPostByUserId(userId);
 
         return new Result(Code.POST_GET_OK, postByUserId);
+    }
+    @GetMapping("/getPostByPostId/{postId}")
+    public Result getPostByPostId(@PathVariable Integer postId) {
+        if (postId == null) return new Result(Code.PASS_VALUE_ERR);
+        Post postByPostId = postService.getPostByPostId(postId);
+
+        return new Result(Code.POST_GET_OK, postByPostId);
     }
 
     @DeleteMapping("/{postId}")
@@ -156,10 +163,17 @@ public class PostController {
         return (flag ? new Result(Code.POST_UPDATE_OK) : new Result(Code.POST_UPDATE_ERR));
     }
 
-    @GetMapping("/byQuestionId/{parentZhiHu}")
-    public Result getPostByQuestionId(@PathVariable Integer parentZhiHu){
-        List<Post> zhiHu = postService.getPostByQuestionId(parentZhiHu);
+    @GetMapping("/byQuestionId/{parentZhiHu}/{pageNum}/{pageSize}")
+    public Result getPostByQuestionId(@PathVariable Integer parentZhiHu, @PathVariable Integer pageNum, @PathVariable Integer pageSize){
+        PageInfo<Post> zhiHu = postService.getPostByQuestionId(parentZhiHu, pageNum, pageSize);
         return new Result(Code.POST_GET_OK,zhiHu);
     }
+
+    @GetMapping("/byContent/{pageNum}/{pageSize}")
+    public Result getPostByContent(@RequestBody String str, @PathVariable Integer pageNum, @PathVariable Integer pageSize){
+        PageInfo<Post> zhiHu = postService.getPostByContent(str, pageNum, pageSize);
+        return new Result(Code.POST_GET_OK,zhiHu);
+    }
+
 
 }

@@ -32,17 +32,18 @@ public class PostServiceImpl implements PostService {
     private PostImgDao postImgDao;
 
     public boolean createPost(Post post) {
+
         return postDao.createPost(post);
     }
 
     public boolean delPostByPostId(Post post) {
-        List<PostImg> imgAddrList = post.getImgAddrList();
-        for (PostImg postImg : imgAddrList) {
+        List<String> imgAddrList = post.getImgAddrList();
+        for (String ImgName : imgAddrList) {
             try {
                 //删除云服务器的内容。
-                PicUtil.delFileByName(postImg.getImgName());
+                PicUtil.delFileByName(ImgName);
             } catch (QiniuException e) {
-                log.info("postId:"+post.getPostId() +"postImgName"+postImg.getImgName()+ "照片删除失败");
+                log.info("postId:"+post.getPostId() +"postImgName"+ImgName+ "照片删除失败");
                 return false;
             }
         }
@@ -93,7 +94,16 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPostByQuestionId(Integer parentZhiHu) {
-        return postDao.getPostByQuestionId(parentZhiHu);
+    public PageInfo<Post> getPostByQuestionId(int parentZhiHu,int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Post> posts = postDao.getPostByQuestionId(parentZhiHu);
+        return new PageInfo<Post>(posts);
+    }
+
+    @Override
+    public PageInfo<Post> getPostByContent(String str,int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Post> posts = postDao.getPostByContent(str);
+        return new PageInfo<Post>(posts);
     }
 }

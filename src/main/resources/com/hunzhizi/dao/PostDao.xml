@@ -94,6 +94,10 @@
 </select>
     <select id="getPostByQuestionId" resultMap="postDto">
         select * from post
-        where parent_zhi_hu = #{parentZhiHu}
+        where post_type = 5
+        and parent_zhi_hu = #{parentZhiHu}
+    </select>
+    <select id="getPostByContent" resultType="com.hunzhizi.domain.Post">
+        select * from post where content like '%${str}%'
     </select>
 </mapper>

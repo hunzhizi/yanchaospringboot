@@ -6,7 +6,7 @@ spring:
   datasource:
     druid:
       password: 123456
-      url: jdbc:mysql://localhost:3306/yan_chao?serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/yan_chao?serverTimezone=UTC&characterEncoding=utf-8
       username: root
       driver-class-name: com.mysql.cj.jdbc.Driver
   servlet:
