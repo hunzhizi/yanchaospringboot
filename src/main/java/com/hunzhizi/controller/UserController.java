@@ -53,7 +53,9 @@ public class UserController {
         assert originalFilename != null;
         int i = originalFilename.lastIndexOf('.');
         String extension = originalFilename.substring(i);
-        String newFileName = key + extension;
+        String uuid = UUID.randomUUID().toString();
+//        String newFileName = key + extension;
+        String newFileName = uuid + extension;
         boolean flag ;
         try {
             //删除老的文件名称
