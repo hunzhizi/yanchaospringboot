@@ -6,7 +6,11 @@
     <!--    List<ZhiHuQuestion> getQuestionsByPriority();-->
     <select id="getQuestionsByPriority" resultType="zhiHuQuestion">
         select * from zhi_hu_question
-        order by priority
+        order by priority desc
+    </select>
+    <select id="getQuestionsByUserId" resultType="ZhiHuQuestion">
+        select * from zhi_hu_question
+        where user_id = #{userId}
     </select>
     <!--    boolean createQuestion(ZhiHuQuestion question);-->
     <insert id="createQuestion" parameterType="zhiHuQuestion">

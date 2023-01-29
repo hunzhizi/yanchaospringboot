@@ -42,9 +42,10 @@ public class ZhiHuQuestion {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-        //TODO 完成热度逻辑
+    public void setPriority() {
+        //完成热度逻辑
+        this.priority = upNum  + 14 * commentNum
+                - (int) ((new Date().getTime() - createTime.getTime()) / 1000 / 60/ 60 / 24);
     }
 
     public Integer getUpNum() {

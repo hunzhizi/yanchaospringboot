@@ -29,4 +29,5 @@ public interface ZhiHuQuestionDao {
 
     //根据关键词查询
 
+    List<ZhiHuQuestion> getQuestionsByUserId(Integer userId);
 }

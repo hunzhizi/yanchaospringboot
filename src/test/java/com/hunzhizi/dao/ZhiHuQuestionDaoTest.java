@@ -1,10 +1,15 @@
 package com.hunzhizi.dao;
 
 
+import com.hunzhizi.YanchaoSpringbootApplication;
 import com.hunzhizi.domain.ZhiHuQuestion;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 
 /**
@@ -13,10 +18,11 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @create: 2022-05-09 16:52
  * @description:
  */
-@SpringBootTest
+@SpringBootTest(classes = YanchaoSpringbootApplication.class)
+@RunWith(SpringRunner.class)
 public class ZhiHuQuestionDaoTest  {
     @Autowired
-    private ZhiHuQuestionDao dao;
+    private ZhiHuQuestionDao zhiHuQuestionDao;
 
     @Test
     public void getQuestionsByPriority() {
@@ -24,11 +30,19 @@ public class ZhiHuQuestionDaoTest  {
     }
 
     @Test
+    public void getQuestionsByUserId(){
+        List<ZhiHuQuestion> list = zhiHuQuestionDao.getQuestionsByUserId(2);
+        for (ZhiHuQuestion question:
+             list) {
+            System.out.println(question.getQuestionContent());
+        }
+    }
+    @Test
     public void createQuestion() {
         ZhiHuQuestion zhiHuQuestion = new ZhiHuQuestion();
         zhiHuQuestion.setUserId(1);
         zhiHuQuestion.setQuestionContent("欢迎大家来到燕巢的校园知乎，有什么问题尽管提问");
-        dao.createQuestion(zhiHuQuestion);
+        zhiHuQuestionDao.createQuestion(zhiHuQuestion);
     }
 
     @Test
@@ -40,8 +54,8 @@ public class ZhiHuQuestionDaoTest  {
     public void updateQuestion() {
         ZhiHuQuestion zhiHuQuestion = new ZhiHuQuestion();
         zhiHuQuestion.setZhiHuQuestionId(1);
-        zhiHuQuestion.setQuestionContent("欢迎大家来到燕巢的校园知乎，有什么问题尽管提问hhh");
-        dao.updateQuestion(zhiHuQuestion);
+        zhiHuQuestion.setQuestionContent("欢迎大家来到燕巢的校园知乎，有什么问题尽管提问");
+        zhiHuQuestionDao.updateQuestion(zhiHuQuestion);
     }
 
 }

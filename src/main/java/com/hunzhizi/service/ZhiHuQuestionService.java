@@ -17,6 +17,8 @@ public interface ZhiHuQuestionService {
 
     PageInfo<ZhiHuQuestion> getQuestionsByRand(Integer pageNum, Integer pageSize);
 
+    PageInfo<ZhiHuQuestion> getQuestionsByUserId(Integer userId, Integer pageNum, Integer pageSize);
+
     boolean createQuestion(ZhiHuQuestion question);
 
     boolean delQuestionById(Integer questionId);

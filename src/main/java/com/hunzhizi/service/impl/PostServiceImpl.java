@@ -72,6 +72,7 @@ public class PostServiceImpl implements PostService {
             //如果帖子的举报数量超过10 ，就将其delete掉
             if (post.getReportNum() != null && post.getReportNum() >= 10) {
                  postDao.delPostByPostId(post.getPostId());
+                 continue;
             }
             post.setPriority();
             postTemp.setPriority(post.getPriority());

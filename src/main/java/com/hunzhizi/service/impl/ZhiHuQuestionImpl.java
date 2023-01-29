@@ -3,6 +3,7 @@ package com.hunzhizi.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hunzhizi.dao.ZhiHuQuestionDao;
+import com.hunzhizi.domain.Post;
 import com.hunzhizi.domain.ZhiHuQuestion;
 import com.hunzhizi.service.ZhiHuQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,17 @@ public class ZhiHuQuestionImpl implements ZhiHuQuestionService {
     public PageInfo<ZhiHuQuestion> getQuestionsByPriority(Integer pageNum, Integer pageSize) {
         List<ZhiHuQuestion> questions = zhiHuQuestionDao.getQuestionsByPriority();
         PageHelper.startPage(pageNum, pageSize);
+        //下面要进行热度更新
+        for (ZhiHuQuestion zhiHuQuestion : questions) {
+            //如果帖子的举报数量超过10 ，就将其delete掉
+            if (zhiHuQuestion.getReportNum() != null && zhiHuQuestion.getReportNum() >= 10) {
+                zhiHuQuestionDao.delQuestionById(zhiHuQuestion.getZhiHuQuestionId());
+                continue;
+            }
+            zhiHuQuestion.setPriority();
+            zhiHuQuestionDao.updateQuestion(zhiHuQuestion);
+        }
+
         return new PageInfo<>(questions);
     }
 
@@ -36,6 +48,13 @@ public class ZhiHuQuestionImpl implements ZhiHuQuestionService {
     public PageInfo<ZhiHuQuestion> getQuestionsByRand(Integer pageNum, Integer pageSize) {
         List<ZhiHuQuestion> questions = zhiHuQuestionDao.getQuestionsByPriority();
         Collections.shuffle(questions);
+        PageHelper.startPage(pageNum, pageSize);
+        return new PageInfo<>(questions);
+    }
+
+    @Override
+    public PageInfo<ZhiHuQuestion> getQuestionsByUserId(Integer userId, Integer pageNum, Integer pageSize) {
+        List<ZhiHuQuestion> questions = zhiHuQuestionDao.getQuestionsByUserId(userId);
         PageHelper.startPage(pageNum, pageSize);
         return new PageInfo<>(questions);
     }

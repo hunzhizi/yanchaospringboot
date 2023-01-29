@@ -25,6 +25,11 @@ public class ZhiHuQuestionController {
         PageInfo<ZhiHuQuestion> questions = zhiHuQuestionService.getQuestionsByPriority(pageNum, pageSize);
         return new Result(Code.ZHI_HU_GET_OK, questions);
     }
+    @GetMapping("/userId/{userId}/{pageNum}/{pageSize}")
+    public Result getQuestionsByUserId(@PathVariable Integer userId,@PathVariable Integer pageNum, @PathVariable Integer pageSize) {
+        PageInfo<ZhiHuQuestion> questions = zhiHuQuestionService.getQuestionsByUserId(userId,pageNum, pageSize);
+        return new Result(Code.ZHI_HU_GET_OK, questions);
+    }
 
     @GetMapping("/rand/{pageNum}/{pageSize}")
     public Result getQuestionsByRand(@PathVariable Integer pageNum, @PathVariable Integer pageSize) {
